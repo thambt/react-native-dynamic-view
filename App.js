@@ -33,75 +33,10 @@ export default class App extends Component<Props> {
                   React Native Dynamic View
               </Text>
           </Header>
-          <KeyboardAvoidingView style={{paddingHorizontal: 20}} behavior="padding" enabled>
-              <Text style={styles.txtSingle}>title</Text>
-              <TextInput
-                  ref={'f'}
-                  value={''}
-                  style={styles.inputSingle}
-                  onSubmitEditing={(event) => {
-                      this.refs.f1.focus()
-                  }}
-                  underlineColorAndroid='transparent'
-                  returnKeyType={'next'}
-                  blurOnSubmit={false}
-              /><Text style={styles.txtSingle}>title</Text>
-              <TextInput
-                  blurOnSubmit={false}
-                  ref={'f1'}
-                  value={''}
-                  style={styles.inputSingle}
-                  onSubmitEditing={(event) => {
-                      this.refs.f2.focus()
-                  }}
-                  underlineColorAndroid='transparent'
-                  returnKeyType={'next'}
-              /><Text style={styles.txtSingle}>title</Text>
-              <TextInput
-                  blurOnSubmit={false}
-                  ref={'f2'}
-                  value={''}
-                  style={styles.inputSingle}
-                  onSubmitEditing={(event) => {
-                      this.refs.f3.focus()
-                  }}
-                  underlineColorAndroid='transparent'
-                  returnKeyType={'next'}
-              /><Text style={styles.txtSingle}>title</Text>
-              <TextInput
-                  blurOnSubmit={false}
-                  ref={'f3'}
-                  value={''}
-                  style={styles.inputSingle}
-                  onSubmitEditing={(event) => {
-                      this.refs.f4.focus()
-                  }}
-                  underlineColorAndroid='transparent'
-                  returnKeyType={'next'}
-              /><Text style={styles.txtSingle}>title</Text>
-              <TextInput
-                  blurOnSubmit={false}
-                  ref={'f4'}
-                  value={''}
-                  style={styles.inputSingle}
-                  onSubmitEditing={(event) => {
-                      this.refs.f5.focus()
-                  }}
-                  underlineColorAndroid='transparent'
-                  returnKeyType={'next'}
-              /><Text style={styles.txtSingle}>title</Text>
-              <TextInput
-                  ref={'f5'}
-                  value={''}
-                  style={styles.inputSingle}
-                  onSubmitEditing={(event) => {
+          <Content style={{paddingHorizontal: 20}} behavior="padding" enabled>
 
-                  }}
-                  underlineColorAndroid='transparent'
-                  returnKeyType={'next'}
-              />
-
-          </KeyboardAvoidingView>
+              {this.getView()}
+          </Content>
       </Container>
     );
   }
@@ -132,7 +67,12 @@ export default class App extends Component<Props> {
                 value={this.state[id]}
                 style={styles.inputSingle}
                 onSubmitEditing={(event) => {
-                    if ( !isNil(this.getIdNext(id))) { this.refs[this.getIdNext(id).toString()].focus() }
+                    if ( !isNil(this.getIdNext(id))) {
+                        this.setState({[this.getIdNext(id).toString()] : ' '}, () => {
+                            this.refs[this.getIdNext(id).toString()].focus()
+                            this.setState({[this.getIdNext(id).toString()] : ''})
+                        })
+                    }
                 }}
                 underlineColorAndroid='transparent'
                 blurOnSubmit={isNil(this.getIdNext(id))}
